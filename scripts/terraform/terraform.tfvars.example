@@ -1,0 +1,19 @@
+# Google Cloud Platform project ID
+project=
+
+# Region and zone where VM resides
+region=
+zone=
+
+# The machine instance name
+name=
+
+# Size of the disk in GiB
+disk_size=
+
+# Compute machine type
+machine_type=
+
+service_account_email=
+
+cloud_init_script_path=

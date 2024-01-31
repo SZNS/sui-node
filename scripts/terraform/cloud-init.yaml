@@ -1,0 +1,40 @@
+#cloud-config
+
+users:
+  - name: sui
+    groups: [users, admin]
+    shell: /bin/bash
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+
+packages:
+  - tzdata
+  - libprotobuf-dev
+  - ca-certificates
+  - build-essential
+  - libssl-dev
+  - libclang-dev
+  - pkg-config
+  - openssl
+  - protobuf-compiler
+  - git
+  - clang
+  - cmake
+  - git-all
+  - gcc
+  - libpq-dev
+
+runcmd:
+  - mkdir -p /opt/sui/bin
+  - mkdir -p /opt/sui/config
+  - mkdir -p /opt/sui/db
+  - mkdir -p /opt/sui/key-pairs
+  - chown -R sui:sui /opt/sui
+  - curl -fsSL https://get.docker.com | sh
+  - usermod -aG docker sui
+  - curl https://sh.rustup.rs -sSf | sh -s -- -y
+  - echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> /home/sui/.bashrc
+  - wget -P /opt/sui/config https://github.com/MystenLabs/sui-genesis/raw/main/mainnet/genesis.blob
+  - wget -O /opt/sui/config/fullnode.yaml https://github.com/MystenLabs/sui/raw/main/crates/sui-config/data/fullnode-template.yaml
+  - wget -P /opt/sui/bin/ https://releases.sui.io/115117180263c8bc25190ce76b6cbe2114551f7c/sui-node
+  - chown -R sui:sui /opt/sui
+  - chmod 544 /opt/sui/bin/sui-node
