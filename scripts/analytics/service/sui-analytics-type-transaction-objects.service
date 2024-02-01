@@ -1,0 +1,13 @@
+[Unit]
+Description=Sui Analytics Indexer (Transaction objects)
+
+[Service]
+User=sui
+WorkingDirectory=/opt/sui/
+Environment=RUST_BACKTRACE=1
+Environment=RUST_LOG=info,sui_core=debug,narwhal=debug,narwhal-primary::helper=info,jsonrpsee=error
+ExecStart=/opt/sui/bin/sui-analytics-indexer --rest-url http://localhost:9000 --starting-checkpoint-seq-num [STARTING_SEQUENCE] --bucket [BUCKET_NAME] --file-format csv --client-metric-port 8084 --file-type transaction-objects gcs --checkpoint-interval 1000
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
