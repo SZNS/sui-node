@@ -24,6 +24,10 @@ packages:
   - libpq-dev
 
 runcmd:
+  - echo 'Installing Google Cloud Ops Agent...'
+  - curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+  - sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+  - echo "Ops Agent installation complete."
   - mkdir -p /opt/sui/bin
   - mkdir -p /opt/sui/config
   - mkdir -p /opt/sui/db

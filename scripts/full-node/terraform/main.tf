@@ -2,7 +2,7 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "4.51.0"
+      version = "5.14.0"
     }
   }
 }
@@ -13,38 +13,59 @@ provider "google" {
   zone    = var.zone
 }
 
-# resource "google_service_account" "service_account" {
-#   account_id   = "sui-full-node-tf-svc-acct"
-#   display_name = "Sui Full Node Terraform Service Account"
-#   description  = "Service account for managing Sui Full Node operations, including access to necessary GCP resources and services."
-# }
+provider "google-beta" {
+  project = var.project
+  region  = var.region
+  zone    = var.zone
+}
 
-# resource "google_project_iam_member" "service_account_perms" {
-#   project = var.project
-#   role    = "roles/editor"
-#   member  = google_service_account.service_account.member
-# }
+resource "google_compute_resource_policy" "vm_disk_snapshot_schedule" {
+  provider = google-beta
+  name   = "${var.name}-snapshot-policy"
+  region = var.region
+
+  snapshot_schedule_policy {
+    schedule {
+      daily_schedule {
+        days_in_cycle = 1
+        start_time    = "04:00" # Snap on these days: Everyday except never during time window: 23:00 to 03:00 EST
+      }
+    }
+
+    retention_policy {
+      max_retention_days    = 2
+      on_source_disk_delete = "KEEP_AUTO_SNAPSHOTS"
+    }
+
+    snapshot_properties {
+      storage_locations = ["us"]
+      labels = {
+        auto_snapshot = "true"
+      }
+    }
+  }
+}
 
 resource "google_compute_disk" "vm_disk" {
+  provider = google-beta
   name  = "${var.name}-disk"
   zone  = var.zone
   image = "ubuntu-os-cloud/ubuntu-2204-lts"
-  size = var.disk_size
-  type = "pd-ssd"
+  size  = var.disk_size
+  type  = "pd-ssd"
+  resource_policies = [google_compute_resource_policy.vm_disk_snapshot_schedule.id]
 }
 
 resource "google_compute_instance" "vm_instance" {
   name         = var.name
   machine_type = var.machine_type
-
   boot_disk {
-    source = google_compute_disk.vm_disk.self_link
+    source      = google_compute_disk.vm_disk.self_link
     auto_delete = false
   }
 
   service_account {
-    # email = google_service_account.service_account.email
-    email  = var.service_account_email
+    email = var.service_account_email != "" ? var.service_account_email : null
     scopes = [
       "https://www.googleapis.com/auth/compute.readonly",
       "https://www.googleapis.com/auth/servicecontrol",
@@ -55,14 +76,6 @@ resource "google_compute_instance" "vm_instance" {
       "https://www.googleapis.com/auth/devstorage.read_write"
     ]
   }
-
-  metadata_startup_script = <<-EOT
-    #!/bin/bash
-    echo "Installing Google Cloud Ops Agent..."
-    curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
-    sudo bash add-google-cloud-ops-agent-repo.sh --also-install
-    echo "Ops Agent installation complete."
-  EOT
 
   metadata = {
     user-data = file(var.cloud_init_script_path)
