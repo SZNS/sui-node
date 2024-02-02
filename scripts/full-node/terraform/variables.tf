@@ -20,7 +20,9 @@ variable "machine_type" {
     default = "c3-highmem-22" # (22 vCPU + 176 GB RAM)
 }
 
-variable "service_account_email" { }
+variable "service_account_email" {
+  default = ""
+}
 
 variable "cloud_init_script_path" {
     default = "cloud-init.yaml"

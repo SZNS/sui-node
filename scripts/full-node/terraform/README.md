@@ -14,6 +14,9 @@ The Terraform script configures the following:
   - **Type**: SSD persistent disk, 6TB NVMe
   - **Encryption**: Default Google-managed encryption key
   - **Deletion Rule**: Keep boot disk
+- **Snapshot Backup Policy**:
+  - **Frequency:** Daily at 4:00 AM
+  - **Max Retention Days:** 2 Days
 - **Access Scopes**:
   - Compute Engine: Read Only
   - Service Control: Enabled
@@ -49,6 +52,12 @@ gcloud auth login --update-adc
 
 4. Create a GCP project - [Follow these instructions to setup a new project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project).
 5. Enable billing and upgrade your account to have full access to all features of GCP. [Follow these steps](https://cloud.google.com/free/docs/gcp-free-tier#how-to-upgrade).
+6. Enable the following APIs in your project:
+```
+Compute Engine API: Allows you to create and manage Compute Engine resources.
+Cloud Logging API: Needed for log data collection and management.
+Cloud Monitoring API: Required for gathering and viewing metrics.
+```
 
 ## Getting Started
 
@@ -56,7 +65,9 @@ To use this repository:
 
 1. **Install Terraform**: Follow the instructions [here](https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/install-cli#install-terraform).
 2. **Initialize Terraform**: Run `terraform init` in the repository directory.
-3. **Configure Variables**: Create a `terraform.tfvars` file for local variables, setting your `project` and `service_account_email`.
+3. **Configure Variables**: Create a `terraform.tfvars` file for local variables, setting your `project` and `service_account_email` (optional).
+
+If `service_account_email` is not provided, the default service account will be used.
 
    Example `terraform.tfvars`:
 
