@@ -1,6 +1,6 @@
 # Sui Full Node Terraform & Cloud-init Configuration
 
-This repository contains a Terraform script and a Cloud-init configuration for setting up a Google Compute Engine instance as a [Sui Full Node](https://docs.sui.io/guides/operator/sui-full-node). It's designed to automate the infrastructure setup and teardown process.
+This doc contains a Terraform script and a Cloud-init configuration for setting up a Google Compute Engine instance as a [Sui Full Node](https://docs.sui.io/guides/operator/sui-full-node). It's designed to automate the infrastructure setup and teardown process.
 
 ## Configuration Overview
 
@@ -61,7 +61,7 @@ Cloud Monitoring API: Required for gathering and viewing metrics.
 
 ## Getting Started
 
-To use this repository:
+To use:
 
 1. **Install Terraform**: Follow the instructions [here](https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/install-cli#install-terraform).
 2. **Initialize Terraform**: Run `terraform init` in the repository directory.
