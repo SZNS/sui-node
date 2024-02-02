@@ -1,6 +1,6 @@
 # Overview
 
-Sui full nodes validates, stores, and serves Sui blockchain data. 
+[Sui Full Nodes](https://docs.sui.io/guides/operator/sui-full-node) validate, store, and serve Sui blockchain data. 
 
 # Prerequisites
 

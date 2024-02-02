@@ -15,6 +15,7 @@ In our configuration, the Analytics Indexer is run on the machine as the Full No
 Below you can find scripts and documentation to aid in initial setup, configuration, and maintenance of nodes on Google Cloud Platform.
 
 - [Running and updating Full Node](docs/fullnode.md)
+  - [Provisioning Full Node via Terraform](docs/terraform.md)
 - [Running and updating Analytics Indexer](docs/analytics-indexer.md)
 - [Disaster Recovery](docs/disaster-recovery.md)
 - [Monitoring and healthchecks](docs/monitoring.md)

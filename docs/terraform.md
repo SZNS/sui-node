@@ -12,7 +12,7 @@ When `terraform apply` is executed, resources are created in the following order
         1. Backups created daily at 4 AM
         2. Retained for 2 days
         
-        ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/0a43eda3-718b-4a0c-bb46-015b10c65c2d/53ac6743-379a-4fa2-bbf0-ba28ccf56c5f/Untitled.png)
+        ![terraformmd-1.png](/assets/reference/terraformmd-1.png)
         
 2. Compute Disk
     1. Creates persistent SDD disk
@@ -27,7 +27,7 @@ When `terraform apply` is executed, resources are created in the following order
         3. Applies metadata (user-data script) and network interface settings
             1. Executes a cloud-init script to install GCP Logging & Monitoring via Ops Agent and configure Sui full node
                 
-                ![Screenshot 2024-02-02 at 1.14.34 PM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/0a43eda3-718b-4a0c-bb46-015b10c65c2d/063e60c4-4d7b-41e7-9e68-9cc8ff6352eb/Screenshot_2024-02-02_at_1.14.34_PM.png)
+                ![terraformmd-2.png](/assets/reference/terraformmd-2.png)
                 
 
 The resources will be **destroyed** in the reverse order when `terraform destroy` is executed (i.e. compute instance → compute disk → snapshot policy).
