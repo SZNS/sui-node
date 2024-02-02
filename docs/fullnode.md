@@ -10,9 +10,7 @@
 
 ## Deploy Compute instance
 
-Use the following Terraform scripts to deploy a Compute instance on Google Cloud Platform.
-
-TODO: [transfer README](https://github.com/SZNS/sui-terraform/blob/main/README.md)
+Follow the instructions [here to deploy a VM via Terraform](../terraform/README.md) on Google Cloud Platform.
 
 ## Configure the Sui Full Node
 
@@ -128,7 +126,7 @@ curl 127.0.0.1:9184/metrics 2>/dev/null | grep -E "^last_executed_checkpoint|^hi
 
 The below example output shows the sync status of the full node. Notice the `highest_synced_checkpoint` should be increasing relatively quickly as the full node catches up to mainnet.
 
-![Screenshot 2024-01-31 at 4.22.50 PM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/0a43eda3-718b-4a0c-bb46-015b10c65c2d/aed12a78-5d79-4d2d-b06b-d1ad67fc3170/Screenshot_2024-01-31_at_4.22.50_PM.png)
+![fullnodemd-1.png](/assets/reference/fullnodemd-1.png)
 
 ### Check service logs
 
