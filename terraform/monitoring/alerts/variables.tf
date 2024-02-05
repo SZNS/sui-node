@@ -1,20 +1,16 @@
-variable "project" { }
+variable "project" {}
 
-variable "region" {
-  default = "us-east4"
-}
+variable "region" {}
 
-variable "zone" {
-  default = "us-east4-c"
-}
+variable "zone" {}
 
 variable "notification_channel_email" {}
 
-variable "machine_name" { }
+variable "machine_name" {}
 
-# As a percentage (eg: 85 = 85%)
+# As a percentage (eg: 0.85 = 85%)
 variable "cpu_threshold" {
-  default = 85
+  default = 0.85
 }
 
 # As a percentage (eg: 85 = 85%)
