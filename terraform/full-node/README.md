@@ -23,7 +23,7 @@ The Terraform script configures the following:
   - Service Management: Read Only
   - Stackdriver APIs: Various access levels
   - Storage: Read Write
-- **Ops Agent**: Ops Agent, Monitoring, and Logging installed
+- **Ops Agent**: Ops Agent, Monitoring, and Logging installed (Config updated to pipe Sui metrics to Ops Agent)
 
 The Cloud-init script provisions the `sui` user, installs necessary software packages, and prepares the environment for running a Sui Full Node.
 
