@@ -27,6 +27,28 @@ runcmd:
   - echo 'Installing Google Cloud Ops Agent...'
   - curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
   - sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+
+  # Configure Ops Agent to pipe Sui metrics into Cloud Monitoring
+  - |
+    sudo bash -c 'cat << EOF > /etc/google-cloud-ops-agent/config.yaml
+    metrics:
+      receivers:
+        prometheus:
+          type: prometheus
+          config:
+            scrape_configs:
+              - job_name: 'sui-metrics'
+                static_configs:
+                  - targets: ['localhost:9184']
+                scrape_interval: 30s
+      service:
+        pipelines:
+          default_pipeline:
+            receivers: [prometheus]
+    EOF'
+
+  # Restart Ops Agent to apply changes
+  - sudo service google-cloud-ops-agent restart
   - echo "Ops Agent installation complete."
   - mkdir -p /opt/sui/bin
   - mkdir -p /opt/sui/config
