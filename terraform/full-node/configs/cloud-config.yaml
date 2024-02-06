@@ -1,0 +1,24 @@
+#cloud-config
+
+users:
+  - name: sui
+    groups: [users, admin]
+    shell: /bin/bash
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+
+packages:
+  - tzdata
+  - libprotobuf-dev
+  - ca-certificates
+  - build-essential
+  - libssl-dev
+  - libclang-dev
+  - pkg-config
+  - openssl
+  - protobuf-compiler
+  - git
+  - clang
+  - cmake
+  - git-all
+  - gcc
+  - libpq-dev

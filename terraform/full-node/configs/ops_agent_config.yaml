@@ -1,0 +1,14 @@
+metrics:
+      receivers:
+        prometheus:
+          type: prometheus
+          config:
+            scrape_configs:
+              - job_name: 'sui-metrics'
+                static_configs:
+                  - targets: ['localhost:9184']
+                scrape_interval: 30s
+      service:
+        pipelines:
+          default_pipeline:
+            receivers: [prometheus]

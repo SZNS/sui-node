@@ -1,4 +1,4 @@
-variable "project" { }
+variable "project" {}
 
 variable "region" {
   default = "us-east4"
@@ -13,17 +13,18 @@ variable "name" {
 }
 
 variable "disk_size" {
-    default = 6144 # 6TB NVMe
+  default = 6144 # 6TB NVMe
 }
 
 variable "machine_type" {
-    default = "c3-highmem-22" # (22 vCPU + 176 GB RAM)
+  default = "c3-highmem-22" # (22 vCPU + 176 GB RAM)
 }
 
 variable "service_account_email" {
   default = ""
 }
 
-variable "cloud_init_script_path" {
-    default = "cloud-init.yaml"
+variable "sui_release_commit_sha" {
+  description = "Latest Commit SHA for the Sui Node"
+  default     = "115117180263c8bc25190ce76b6cbe2114551f7c"
 }
