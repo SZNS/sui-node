@@ -8,7 +8,10 @@ metrics:
                 static_configs:
                   - targets: ['localhost:9184']
                 scrape_interval: 30s
+        hostmetrics:
+          type: hostmetrics
+          collection_interval: 60s
       service:
         pipelines:
           default_pipeline:
-            receivers: [prometheus]
+            receivers: [hostmetrics, prometheus]
