@@ -40,6 +40,13 @@ The Sui Analytics Indexer extracts, processes, and exports data from the Sui blo
     ```bash
     sudo mv target/release/sui-analytics-indexer /opt/sui/bin
     ```
+        
+5. Give ownership to the `sui` user
+    
+    ```bash
+        sudo chown -R sui:sui /opt/sui
+        sudo chmod 544 /opt/sui/bin/sui-node
+    ```
     
 
 # Create Services
@@ -147,7 +154,12 @@ The below is an example to export checkpoint data. Please refer to `analytics/se
     [Install]
     WantedBy=multi-user.target
     ```
+8. Update ownership to `sui` user
     
+    ```bash
+        sudo chown -R sui:sui /opt/sui
+        sudo chmod 544 /opt/sui/bin/sui-node
+    ```    
 8. Start all the services again
     
     ```bash
