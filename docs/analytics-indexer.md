@@ -1,4 +1,3 @@
-# Overview
 
 The Sui Analytics Indexer extracts, processes, and exports data from the Sui blockchain into structured data that's optimized for querying.
 
@@ -134,7 +133,9 @@ The below is an example to export checkpoint data. Please refer to `analytics/se
     sudo mv target/release/sui-analytics-indexer /opt/sui/bin
     ```
     
-7. Update all analytics services with a new `starting-checkpoint-seq-num` . This prevents the indexer from starting from checkpoints already indexed. 
+7. Update all analytics services with a new `starting-checkpoint-seq-num` . This prevents the indexer from starting from checkpoints already indexed.
+
+   **THIS STEP IS IMPORTANT TO PREVENT DUPLICATE OR EXTRANEOUS DATA EXPORTS**
 
     
     For example, in the service below replace `[STARTING_SEQUENCE]` with the last checkpoint indexed.
@@ -154,7 +155,7 @@ The below is an example to export checkpoint data. Please refer to `analytics/se
     [Install]
     WantedBy=multi-user.target
     ```
-8. Update ownership to `sui` user
+9. Update ownership to `sui` user
     
     ```bash
         sudo chown -R sui:sui /opt/sui
