@@ -130,7 +130,7 @@ The below is an example to export checkpoint data. Please refer to `analytics/se
 6. Move the `sui-analytics-indexer` binary
     
     ```bash
-    sudo rm /opt/sui/bin/sui-analytics/indexer
+    sudo rm /opt/sui/bin/sui-analytics-indexer
     sudo mv target/release/sui-analytics-indexer /opt/sui/bin
     ```
     
