@@ -3,3 +3,4 @@ If ever in the situation where a full node fails we recommend the following reme
 1. [Recover from the latest a disk snapshot](docs/snapshot.md) - This enables the new full node to sync, at most, one epoch
 2. [Ensure the full node service is running](docs/fullnode.md)
 3. [Ensure relevant analytics indexer services are rerun](docs/analytics-indexer.md)
+4. For better chain sync performance we recommend the full node catch up to on-chain data first then restart any analytics services
