@@ -10,7 +10,7 @@
 
 ## Deploy Compute instance
 
-Follow the instructions [here to deploy a VM via Terraform](../terraform/README.md) on Google Cloud Platform.
+Follow the instructions [here to deploy a VM via Terraform](https://github.com/SZNS/sui-node/blob/main/docs/terraform.md) on Google Cloud Platform.
 
 ## Configure the Sui Full Node
 
@@ -167,5 +167,7 @@ wget -P /opt/sui/bin/ https://releases.sui.io/[RELEASE_HASH]/sui-node
 ## Rerun the Sui Full node service
 
 ```bash
+sudo chown -R sui:sui /opt/sui
+sudo chmod 544 /opt/sui/bin/sui-node
 sudo systemctl start sui-node
 ```
