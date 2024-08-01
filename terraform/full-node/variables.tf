@@ -26,5 +26,5 @@ variable "service_account_email" {
 
 variable "sui_release_commit_sha" {
   description = "Latest Commit SHA for the Sui Node"
-  default     = "115117180263c8bc25190ce76b6cbe2114551f7c"
+  default     = "09db80adf1af7f60464ffc04b09b8fafc02917c5"
 }
