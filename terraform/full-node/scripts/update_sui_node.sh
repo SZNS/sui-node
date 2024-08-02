@@ -5,10 +5,10 @@ SCRIPT_DIR="/opt/sui"
 CURRENT_VERSION_FILE="$SCRIPT_DIR/current_version.txt"
 INSTALL_PATH="/opt/sui/bin"
 
-# Ensure jq is installed
+# Install jq if its not installed
 if ! command -v jq &> /dev/null; then
   echo "jq could not be found, attempting to install..."
-  sudo apt-get update && sudo apt-get install -y jq
+  apt-get update && apt-get install -y jq
 fi
 
 echo "Fetching the latest 5 releases information"
@@ -48,35 +48,24 @@ fi
 
 # Compare the current version with the latest commit SHA
 if [ "$ACTUAL_COMMIT_SHA" != "$CURRENT_VERSION" ]; then
-    echo "A new mainnet release was found. Updating to $ACTUAL_COMMIT_SHA..."
+    echo "A new mainnet release was found: $LATEST_MAINNET_TAG ($LATEST_COMMIT_SHA). Updating..."
 
     echo "Removing the old binary..."
-    sudo rm -f $INSTALL_PATH/sui-node
+    rm -f $INSTALL_PATH/sui-node
 
     echo "Downloading the latest Sui Node binary"
     wget -P $INSTALL_PATH "https://releases.sui.io/${ACTUAL_COMMIT_SHA}/sui-node"
 
     echo "Setting permissions on the new binary"
-    sudo chown -R sui:sui $INSTALL_PATH
-    sudo chmod 544 $INSTALL_PATH/sui-node
+    chown -R sui:sui $INSTALL_PATH
+    chmod 544 $INSTALL_PATH/sui-node
 
     echo $ACTUAL_COMMIT_SHA > $CURRENT_VERSION_FILE
 
     echo "Stopping the Sui Full Node service"
-    sudo systemctl stop sui-node
+    systemctl stop sui-node
     echo "Restarting the Sui Full Node service"
-    sudo systemctl start sui-node
-
-    echo "Restart analytics indexer"
-    sudo systemctl daemon-reload
-    # Do this for every relevant analytics service running
-    sudo systemctl restart sui-analytics-type-checkpoint
-    sudo systemctl restart sui-analytics-type-event
-    sudo systemctl restart sui-analytics-type-move-call
-    sudo systemctl restart sui-analytics-type-move-package
-    sudo systemctl restart sui-analytics-type-object
-    sudo systemctl restart sui-analytics-type-transaction
-    sudo systemctl restart sui-analytics-type-transaction-objects
+    systemctl start sui-node
 
     echo "Update completed successfully."
 else
