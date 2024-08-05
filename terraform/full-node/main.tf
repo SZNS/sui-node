@@ -156,4 +156,27 @@ data "cloudinit_config" "cloud_init" {
                     sudo systemctl start sui-node
                     EOF
   }
+  part {
+    filename     = "update_sui_node.sh"
+    content_type = "text/x-shellscript"
+    content      = file("${path.module}/scripts/update_sui_node.sh")
+  }
+
+  part {
+    content_type = "text/x-shellscript"
+    content      = <<-EOF
+                    #!/bin/sh
+                    mkdir -p /opt/scripts
+                    mv /var/lib/cloud/instance/scripts/update_sui_node.sh /opt/scripts/update_sui_node.sh
+                    chmod +x /opt/scripts/update_sui_node.sh
+                    EOF
+  }
+  part {
+    content_type = "text/x-shellscript"
+    content      = <<-EOF
+                    #!/bin/sh
+                    # Add a cron job to run the update script daily at 2:00 AM
+                    (crontab -l 2>/dev/null; echo "0 2 * * * /opt/scripts/update_sui_node.sh") | crontab -
+                    EOF
+  }
 }
