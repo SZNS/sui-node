@@ -4,6 +4,7 @@
 SCRIPT_DIR="/opt/sui"
 CURRENT_VERSION_FILE="$SCRIPT_DIR/current_version.txt"
 INSTALL_PATH="/opt/sui/bin"
+SLACK_SECRET_NAME=$1
 
 # Install jq if its not installed
 if ! command -v jq &> /dev/null; then
@@ -46,6 +47,15 @@ else
     CURRENT_VERSION=""
 fi
 
+send_slack_message() {
+  local SLACK_MESSAGE=$1
+  SLACK_WEBHOOK_URL=$(gcloud secrets versions access latest --secret="${SLACK_SECRET_NAME}" 2>/dev/null)
+  if [ -n "$SLACK_WEBHOOK_URL" ]; then
+    curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"${SLACK_MESSAGE}\"}" "${SLACK_WEBHOOK_URL}"
+  else
+    echo "Slack webhook URL not available. Unable to send."
+  fi
+}
 # Compare the current version with the latest commit SHA
 if [ "$ACTUAL_COMMIT_SHA" != "$CURRENT_VERSION" ]; then
     echo "A new mainnet release was found: $LATEST_MAINNET_TAG ($LATEST_COMMIT_SHA). Updating..."
@@ -68,7 +78,12 @@ if [ "$ACTUAL_COMMIT_SHA" != "$CURRENT_VERSION" ]; then
     systemctl start sui-node
 
     echo "Update completed successfully."
+
+    if [ -n "$SLACK_SECRET_NAME" ]; then
+      SLACK_MESSAGE="SUI Node updated successfully to version $LATEST_MAINNET_TAG ($ACTUAL_COMMIT_SHA)."
+      send_slack_message "$SLACK_MESSAGE"
+    fi
+    
 else
     echo "No update is needed. Current version $CURRENT_VERSION is up to date."
 fi
-
