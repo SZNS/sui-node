@@ -28,3 +28,9 @@ variable "sui_release_commit_sha" {
   description = "Latest Commit SHA for the Sui Node"
   default     = "09db80adf1af7f60464ffc04b09b8fafc02917c5"
 }
+
+variable "SLACK_SECRET_NAME" {
+  description = "The name of the Slack webhook url in GCP Secret Manager"
+  type        = string
+  default     = ""
+}
