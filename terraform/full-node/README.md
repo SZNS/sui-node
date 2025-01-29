@@ -79,7 +79,7 @@ If `service_account_email` is not provided, the default service account will be 
 If `SLACK_SECRET_NAME` variable is set in variables.tf or terraform.tfvars file, the system will attempt to fetch the webhook URL from Secret Manager and send notifications to the specified Slack channel.
 
    ```
-   SLACK_SECRET_NAME = "your-service-account-email@example.com"
+   SLACK_SECRET_NAME = "slack-webhook-url"
    ```
 
 4. **Deploy**: Execute `terraform apply` to create the resources in GCP.
