@@ -32,5 +32,5 @@ variable "sui_release_commit_sha" {
 variable "SLACK_SECRET_NAME" {
   description = "The name of the Slack webhook url in GCP Secret Manager"
   type        = string
-  default     = ""
+  default     = "slack-webhook-url"
 }
