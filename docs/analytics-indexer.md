@@ -64,7 +64,7 @@ The Sui Analytics Indexer extracts, processes, and exports data from the Sui blo
     object-store: "GCS"
     bucket: "sui-mainnet-analytics"
     google-service-account: "/path/to/your/service-account.json"
-    remote_store_url: "https://checkpoints.mainnet.sui.io"
+    remote_store_url: "https://storage.googleapis.com/mysten-mainnet-checkpoints"
     package_cache_path: "/opt/sui/db/package_cache"
     tasks:
     - task_name: "checkpoint"
