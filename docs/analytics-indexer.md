@@ -61,56 +61,46 @@ The Sui Analytics Indexer extracts, processes, and exports data from the Sui blo
     rest_url: "http://localhost:9000"
     checkpoint_root: "/opt/sui/db"
     remote_store_config:
-    object-store: "GCS"
-    bucket: "sui-mainnet-analytics"
-    google-service-account: "/path/to/your/service-account.json"
-    remote_store_url: "https://storage.googleapis.com/mysten-mainnet-checkpoints"
+      object-store: "GCS"
+      bucket: "sui-mainnet-analytics"
+      google-service-account: "/path/to/your/service-account.json"
+    remote_store_url: "https://checkpoints.mainnet.sui.io"
     package_cache_path: "/opt/sui/db/package_cache"
     tasks:
     - task_name: "checkpoint"
-        file_type: "Checkpoint"
-        file_format: "CSV"
-        checkpoint_interval: 1000
+      file_type: "Checkpoint"
+      file_format: "CSV"
+      checkpoint_interval: 1000
 
     - task_name: "transaction"
-        file_type: "Transaction"
-        file_format: "CSV"
-        checkpoint_interval: 1000
-
-    - task_name: "transaction-bcs"
-        file_type: "TransactionBCS"
-        file_format: "CSV"
-        checkpoint_interval: 1000
+      file_type: "Transaction"
+      file_format: "CSV"
+      checkpoint_interval: 1000
 
     - task_name: "transaction-objects"
-        file_type: "TransactionObjects"
-        file_format: "CSV"
-        checkpoint_interval: 1000
+      file_type: "TransactionObjects"
+      file_format: "CSV"
+      checkpoint_interval: 1000
 
     - task_name: "object"
-        file_type: "Object"
-        file_format: "CSV"
-        checkpoint_interval: 100
+      file_type: "Object"
+      file_format: "CSV"
+      checkpoint_interval: 100
 
     - task_name: "event"
-        file_type: "Event"
-        file_format: "CSV"
-        checkpoint_interval: 10000
+      file_type: "Event"
+      file_format: "CSV"
+      checkpoint_interval: 10000
 
     - task_name: "move-call"
-        file_type: "MoveCall"
-        file_format: "CSV"
-        checkpoint_interval: 1000
+      file_type: "MoveCall"
+      file_format: "CSV"
+      checkpoint_interval: 1000
 
     - task_name: "package"
-        file_type: "MovePackage"
-        file_format: "CSV"
-        checkpoint_interval: 1000
-
-    - task_name: "wrapped-object"
-        file_type: "WrappedObject"
-        file_format: "CSV"
-        checkpoint_interval: 1000
+      file_type: "MovePackage"
+      file_format: "CSV"
+      checkpoint_interval: 1000
 
     ```
 
