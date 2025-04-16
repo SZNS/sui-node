@@ -85,12 +85,12 @@ The Sui Analytics Indexer extracts, processes, and exports data from the Sui blo
     - task_name: "object"
       file_type: "Object"
       file_format: "CSV"
-      checkpoint_interval: 100
+      checkpoint_interval: 1000
 
     - task_name: "event"
       file_type: "Event"
       file_format: "CSV"
-      checkpoint_interval: 10000
+      checkpoint_interval: 1000
 
     - task_name: "move-call"
       file_type: "MoveCall"
@@ -123,8 +123,9 @@ The Sui Analytics Indexer extracts, processes, and exports data from the Sui blo
     [Service]
     User=sui
     WorkingDirectory=/opt/sui/
-    Environment=RUST_BACKTRACE=full
+    Environment=RUST_BACKTRACE=1
     Environment=RUST_LOG=info,sui_core=debug,narwhal=debug,narwhal-primary::helper=info,jsonrpsee=error
+    Environment=MAX_ANNOTATED_VALUE_SIZE=20000000
     ExecStart=/opt/sui/bin/sui-analytics-indexer /opt/sui/config/analytics.yaml
     Restart=on-failure
     StandardOutput=journal
